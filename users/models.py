@@ -9,7 +9,6 @@ SEX_CHOICES = [
     ('O', 'Other'),
 ]
 
-# Create your models here.
 class User(models.Model):
     static_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     auth_user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
@@ -20,6 +19,7 @@ class User(models.Model):
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, null=False)
     address = models.TextField(null=True)
     pincode = models.CharField(max_length=6, validators=[RegexValidator(r'^\d{1,6}$')])
+    profile_pic = models.ImageField(upload_to='profile_pics/', null=True, blank=True)  # New field
 
     @property
     def age(self):
